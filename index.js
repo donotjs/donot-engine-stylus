@@ -1,11 +1,15 @@
 var stylus = require('stylus');
 
-exports = module.exports = function() {
+exports = module.exports = function(opt) {
+
+  var options = opt || {};
+
   return {
     map: {
       '.css': '.styl'
     },
-    compile: function(file, data, encoding, cb) {
+    encoding: options.encoding || 'utf8',
+    compile: function(file, data, opt, cb) {
       var files;
       source = stylus.render(data, { filename: file }, function(err, source) {
         if (err) return cb(err);
