@@ -1,5 +1,5 @@
 smart-static-stylus
-===============
+===================
 
 [Stylus](http://npmjs.org/packages/stylus) support for [smart-static](http://github.com/trenskow/smart-static.js).
 
