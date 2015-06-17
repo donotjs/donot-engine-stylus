@@ -30,5 +30,5 @@ There is only one available option for the Stylus engine plug-in.
 
 | Name       | Type    | Default | Description |
 |:-----------|:--------|:--------|:------------|
-| **minify** | Boolean | `true`  | Minify CSS on render |
+| **minify** | Boolean | `true`  | Minify CSS. |
 
