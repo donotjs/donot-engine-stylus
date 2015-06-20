@@ -1,6 +1,8 @@
 smart-static-stylus
 ===================
 
+[![Build Status](https://travis-ci.org/trenskow/smart-static-stylus.svg?branch=master)](https://travis-ci.org/trenskow/smart-static-stylus)
+
 [Stylus](http://npmjs.org/packages/stylus) rendering engine for [smart-static](http://github.com/trenskow/smart-static.js).
 
 # Usage
