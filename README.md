@@ -34,3 +34,7 @@ There is only one available option for the Stylus engine plug-in.
 |:-----------|:--------|:--------|:------------|
 | **minify** | Boolean | `true`  | Minify CSS. |
 
+# License
+
+MIT
+
