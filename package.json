@@ -1,12 +1,12 @@
 {
   "name": "smart-static-stylus",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Stylus template support for smart-static.",
   "author": "Kristian Trenskow <trenskow@me.com>",
   "main": "index.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/trenskow/smart-static-stylus.js"
+    "url": "https://github.com/trenskow/smart-static-stylus"
   },
   "dependencies": {
     "stylus": "^0.51.1",
