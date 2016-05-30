@@ -1,9 +1,9 @@
 donot-engine-stylus
 ===================
 
-[![Build Status](https://travis-ci.org/trenskow/donot-engine-stylus.svg?branch=master)](https://travis-ci.org/trenskow/donot-engine-stylus)
+[![Build Status](https://travis-ci.org/donotjs/donot-engine-stylus.svg?branch=master)](https://travis-ci.org/donotjs/donot-engine-stylus)
 
-[Stylus](http://npmjs.org/packages/stylus) rendering engine for [donot](http://github.com/trenskow/donot).
+[Stylus](http://npmjs.org/packages/stylus) rendering engine for [donot](http://github.com/donotjs/donot).
 
 # Usage
 

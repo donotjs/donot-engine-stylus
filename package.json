@@ -6,7 +6,7 @@
   "main": "index.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/trenskow/donot-engine-stylus"
+    "url": "https://github.com/donotjs/donot-engine-stylus"
   },
   "dependencies": {
     "stylus": "^0.51.1",
