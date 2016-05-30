@@ -1,12 +1,12 @@
 {
-  "name": "smart-static-stylus",
-  "version": "1.0.2",
-  "description": "Stylus template support for smart-static.",
+  "name": "donot-engine-stylus",
+  "version": "1.0.0",
+  "description": "Stylus template support for donot.",
   "author": "Kristian Trenskow <trenskow@me.com>",
   "main": "index.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/trenskow/smart-static-stylus"
+    "url": "https://github.com/trenskow/donot-engine-stylus"
   },
   "dependencies": {
     "stylus": "^0.51.1",

@@ -1,3 +1,5 @@
+/*jshint expr: true*/
+
 var fs = require('fs');
 var path = require('path');
 var expect = require('chai').expect;
