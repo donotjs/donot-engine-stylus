@@ -24,8 +24,11 @@ class StylusTransform extends Transform {
 
 	compile(filename, data, opt) {
 		return new Promise((resolved, rejected) => {
-			var style = stylus(data).set('filename', filename).set('sourcemap', true);
-			style.render(data, { filename: filename, cache: false, sourcemap: true }, function(err, css) {
+			var style = stylus(data)
+			            .set('filename', filename)
+			            .set('sourcemap', true)
+			            .set('cache', false);
+			style.render(function(err, css) {
 				if (err) return rejected(err);
 				var files = stylus(data).deps(filename);
 				resolved({

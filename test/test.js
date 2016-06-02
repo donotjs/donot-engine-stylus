@@ -30,37 +30,41 @@ describe('stylus', () => {
 	describe('compiler', () => {
 
 		it ('should return true when filename is .css', () => {
-			transform.canTransform('my.css').should.eventually.be.true;
+			return transform.canTransform('my.css').should.eventually.be.true;
 		});
 
 		it ('should return false when filename is .styl', () => {
-			transform.canTransform('my.styl').should.eventually.be.false;
+			return transform.canTransform('my.styl').should.eventually.be.false;
 		});
 
-		it ('should return true when filename is .styl', () => {
-			transform.allowAccess('my.styl').should.eventually.be.true;
+		it ('should return false when filename is .styl', () => {
+			return transform.allowAccess('my.styl').should.eventually.be.false;
 		});
 
-		it ('should return false when filename is .css', () => {
-			transform.allowAccess('my.css').should.eventually.be.false;
+		it ('should return true when filename is .css', () => {
+			return transform.allowAccess('my.css').should.eventually.be.true;
 		});
 
 		it ('should return error on malformed stylus', () => {
-			transform.compile(malformedFile, malformed).should.eventually.be.rejected;
-		});
-
-		it ('should return css on valid stylus (non-minify)', () => {
-			transform.compile(testFile, test).then((data) => {
-				expect(data).to.be.a('string');
-				expect(data).to.be.equal('body {\n  width: 100%;\n}\n');
-			}).should.eventually.be.fulfilled;
+			return transform.compile(malformedFile, malformed).should.eventually.be.rejected;
 		});
 
 		it ('should return css on valid stylus', () => {
-			transform.compile(testFile, test).then((data) => {
-				expect(data).to.be.a('string');
-				expect(data).to.be.equal('body{width:100%}');
-			}).should.eventually.be.fulfilled;
+			return transform.compile(testFile, test).should.eventually.deep.equal({
+				data: "body {\n  width: 100%;\n}\n/*# sourceMappingURL=test/data/test.css.map */",
+        files: [
+          __dirname + "/data/test.styl"
+        ],
+        map: {
+          file: "test.css",
+          mappings: "AAAA;EACC,OAAO,KAAP",
+          names: [],
+          sources: [
+            "test/data/test.styl"
+          ],
+          version: 3
+				}
+			});
 		});
 
 	});
