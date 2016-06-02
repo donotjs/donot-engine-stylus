@@ -1,5 +1,5 @@
 {
-  "name": "donot-transform-stylus",
+  "name": "@donotjs/donot-transform-stylus",
   "version": "1.0.0",
   "description": "Stylus template support for donot.",
   "author": "Kristian Trenskow <trenskow@me.com>",
