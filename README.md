@@ -11,14 +11,10 @@ Using the Stylus donot transform plug-in is pretty easy.
 
 	var http = require('http'),
 	    donot = require('donot'),
-	    stylus = require('donot-transform-stylus');
+	    StylusTransform = require('donot-transform-stylus');
 
     var server = http.createServer(donot(__dirname + '/public', {
-        transforms: [
-        	stylus({
-        		minify: true
-        	})
-        ]
+        transforms: [ new StylusTransform() ]
     }));
 
     server.listen(8000);
