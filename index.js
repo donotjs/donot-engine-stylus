@@ -1,29 +1,42 @@
 'use strict';
 
-var stylus = require('stylus');
-var CleanCSS = require('clean-css');
+const stylus = require('stylus');
+const Transform = require('@donotjs/donot-transform');
 
-exports = module.exports = function(opt) {
+class StylusTransform extends Transform {
 
-  var options = opt || {};
+	constructor(opt) {
+		super();
+		this.options = opt || {};
+	}
 
-  options.minify = options.minify !== false;
+	canTransform(filename) {
+		return Promise.resolve(/\.css$/i.test(filename));
+	}
 
-  return {
-    map: {
-      '.css': '.styl'
-    },
-    encoding: options.encoding || 'utf8',
-    compile: function(file, data, opt, cb) {
-      stylus.render(data, { filename: file, cache: false }, function(err, source) {
-        if (err) return cb(err);
-        var files = stylus(data).deps(file);
-        // Minify if selected (default: true)
-        if (options.minify === true) {
-          source = new CleanCSS().minify(source).styles;
-        }
-        cb(null, source, [file].concat(files));
-      });
-    }
-  };
-};
+	allowAccess(filename) {
+		return Promise.resolve(!/\.styl$/i.test(filename));
+	}
+
+	map(filename) {
+		return Promise.resolve(filename.replace(/\.css$/, '.styl'));
+	}
+
+	compile(filename, data, opt) {
+		return new Promise((resolved, rejected) => {
+			var style = stylus(data).set('filename', filename).set('sourcemap', true);
+			style.render(data, { filename: filename, cache: false, sourcemap: true }, function(err, css) {
+				if (err) return rejected(err);
+				var files = stylus(data).deps(filename);
+				resolved({
+					data: css,
+					files: [filename].concat(files),
+					map: style.sourcemap
+				});
+			});
+		});
+	}
+
+}
+
+exports = module.exports = StylusTransform;

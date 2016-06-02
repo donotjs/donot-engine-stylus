@@ -2,50 +2,67 @@
 
 'use strict';
 
-var fs = require('fs');
-var path = require('path');
-var expect = require('chai').expect;
-var engine = require('../');
+const fs = require('fs');
+const path = require('path');
+const chai = require('chai');
+const expect = chai.expect;
+const chaiAsPromised = require('chai-as-promised');
 
-var testFile = path.normalize(__dirname + '/data/test.styl');
-var malformedFile = path.normalize(__dirname + '/data/malformed.styl');
+chai.should();
+chai.use(chaiAsPromised);
 
-describe('stylus', function() {
+const StylusTransform = require('../');
 
-  var test;
-  var malformed;
-  before(function() {
-    test = fs.readFileSync(testFile, { encoding: 'utf8' });
-    malformed = fs.readFileSync(malformedFile, { encoding: 'utf8' });
-  });
+const testFile = path.normalize(__dirname + '/data/test.styl');
+const malformedFile = path.normalize(__dirname + '/data/malformed.styl');
 
-  describe('compiler', function() {
+const transform = new StylusTransform();
 
-    it ('should return error on malformed stylus', function(done) {
-      engine().compile(malformedFile, malformed, 'utf8', function(err, data) {
-        expect(err).to.be.instanceof(Error);
-        done();
-      });
-    });
+describe('stylus', () => {
 
-    it ('should return css on valid stylus (non-minify)', function(done) {
-      engine({minify: false}).compile(testFile, test, 'utf8', function(err, data) {
-        expect(err).to.be.null;
-        expect(data).to.be.a('string');
-        expect(data).to.be.equal('body {\n  width: 100%;\n}\n');
-        done();
-      });
-    });
+	var test;
+	var malformed;
+	before(() => {
+		test = fs.readFileSync(testFile, { encoding: 'utf8' });
+		malformed = fs.readFileSync(malformedFile, { encoding: 'utf8' });
+	});
 
-    it ('should return css on valid stylus', function(done) {
-      engine().compile(testFile, test, 'utf8', function(err, data) {
-        expect(err).to.be.null;
-        expect(data).to.be.a('string');
-        expect(data).to.be.equal('body{width:100%}');
-        done();
-      });
-    });
+	describe('compiler', () => {
 
-  });
+		it ('should return true when filename is .css', () => {
+			transform.canTransform('my.css').should.eventually.be.true;
+		});
+
+		it ('should return false when filename is .styl', () => {
+			transform.canTransform('my.styl').should.eventually.be.false;
+		});
+
+		it ('should return true when filename is .styl', () => {
+			transform.allowAccess('my.styl').should.eventually.be.true;
+		});
+
+		it ('should return false when filename is .css', () => {
+			transform.allowAccess('my.css').should.eventually.be.false;
+		});
+
+		it ('should return error on malformed stylus', () => {
+			transform.compile(malformedFile, malformed).should.eventually.be.rejected;
+		});
+
+		it ('should return css on valid stylus (non-minify)', () => {
+			transform.compile(testFile, test).then((data) => {
+				expect(data).to.be.a('string');
+				expect(data).to.be.equal('body {\n  width: 100%;\n}\n');
+			}).should.eventually.be.fulfilled;
+		});
+
+		it ('should return css on valid stylus', () => {
+			transform.compile(testFile, test).then((data) => {
+				expect(data).to.be.a('string');
+				expect(data).to.be.equal('body{width:100%}');
+			}).should.eventually.be.fulfilled;
+		});
+
+	});
 
 });

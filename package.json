@@ -1,20 +1,21 @@
 {
-  "name": "donot-engine-stylus",
+  "name": "donot-transform-stylus",
   "version": "1.0.0",
   "description": "Stylus template support for donot.",
   "author": "Kristian Trenskow <trenskow@me.com>",
   "main": "index.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/donotjs/donot-engine-stylus"
+    "url": "https://github.com/donotjs/donot-transform-stylus"
   },
   "dependencies": {
-    "stylus": "^0.51.1",
-    "clean-css": "^3.3.3"
+    "@donotjs/donot-transform": "^1.0.0",
+    "stylus": "^0.51.1"
   },
   "devDependencies": {
-    "mocha": "^2.2.5",
-    "chai": "^3.0.0"
+    "chai": "^3.0.0",
+    "chai-as-promised": "^5.3.0",
+    "mocha": "^2.2.5"
   },
   "scripts": {
     "test": "mocha test/*"

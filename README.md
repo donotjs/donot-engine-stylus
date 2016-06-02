@@ -1,20 +1,20 @@
-donot-engine-stylus
-===================
+donot-transform-stylus
+======================
 
-[![Build Status](https://travis-ci.org/donotjs/donot-engine-stylus.svg?branch=master)](https://travis-ci.org/donotjs/donot-engine-stylus)
+[![Build Status](https://travis-ci.org/donotjs/donot-transform-stylus.svg?branch=master)](https://travis-ci.org/donotjs/donot-transform-stylus)
 
 [Stylus](http://npmjs.org/packages/stylus) rendering engine for [donot](http://github.com/donotjs/donot).
 
 # Usage
 
-Using the Stylus donot engine plug-in is pretty easy.
+Using the Stylus donot transform plug-in is pretty easy.
 
 	var http = require('http'),
 	    donot = require('donot'),
-	    stylus = require('donot-engine-stylus');
+	    stylus = require('donot-transform-stylus');
 
     var server = http.createServer(donot(__dirname + '/public', {
-        engines: [
+        transforms: [
         	stylus({
         		minify: true
         	})
@@ -24,14 +24,6 @@ Using the Stylus donot engine plug-in is pretty easy.
     server.listen(8000);
 
 Now `.styl` files in the `/public` folder will automatically be compiled, rendered and served as `.css` files.
-
-# Options
-
-There is only one available option for the Stylus engine plug-in.
-
-| Name       | Type    | Default | Description |
-|:-----------|:--------|:--------|:------------|
-| **minify** | Boolean | `true`  | Minify CSS. |
 
 # License
 
