@@ -50,21 +50,12 @@ describe('stylus', () => {
 		});
 
 		it ('should return css on valid stylus', () => {
-			return transform.compile(testFile, test).should.eventually.deep.equal({
-				data: "body {\n  width: 100%;\n}\n/*# sourceMappingURL=test/data/test.css.map */",
-        files: [
-          __dirname + "/data/test.styl"
-        ],
-        map: {
-          file: "test.css",
-          mappings: "AAAA;EACC,OAAO,KAAP",
-          names: [],
-          sources: [
-            "test/data/test.styl"
-          ],
-          version: 3
-				}
-			});
+			return transform.compile(testFile, test).then((result) => {
+				expect(result.data).to.equal('body {\n  width: 100%;\n}\n/*# sourceMappingURL=test/data/test.css.map */');
+				expect(result.files).to.be.an.array;
+				expect(result.files[0]).to.be.a('string');
+				expect(result.map).to.be.an.object;
+			}).should.eventually.be.fulfilled;
 		});
 
 	});
