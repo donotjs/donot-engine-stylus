@@ -11,15 +11,15 @@ class StylusTransform extends Transform {
 	}
 
 	canTransform(filename) {
-		return Promise.resolve(/\.css$/i.test(filename));
+		return /\.css$/i.test(filename);
 	}
 
 	allowAccess(filename) {
-		return Promise.resolve(!/\.styl$/i.test(filename));
+		return !/\.styl$/i.test(filename);
 	}
 
 	map(filename) {
-		return Promise.resolve(filename.replace(/\.css$/, '.styl'));
+		return filename.replace(/\.css$/, '.styl');
 	}
 
 	compile(filename, data, opt) {

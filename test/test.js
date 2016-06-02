@@ -30,19 +30,19 @@ describe('stylus', () => {
 	describe('compiler', () => {
 
 		it ('should return true when filename is .css', () => {
-			return transform.canTransform('my.css').should.eventually.be.true;
+			expect(transform.canTransform('my.css')).to.be.true;
 		});
 
 		it ('should return false when filename is .styl', () => {
-			return transform.canTransform('my.styl').should.eventually.be.false;
+			expect(transform.canTransform('my.styl')).to.be.false;
 		});
 
 		it ('should return false when filename is .styl', () => {
-			return transform.allowAccess('my.styl').should.eventually.be.false;
+			expect(transform.allowAccess('my.styl')).to.be.false;
 		});
 
 		it ('should return true when filename is .css', () => {
-			return transform.allowAccess('my.css').should.eventually.be.true;
+			expect(transform.allowAccess('my.css')).to.be.true;
 		});
 
 		it ('should return error on malformed stylus', () => {
