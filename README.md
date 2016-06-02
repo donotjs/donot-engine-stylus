@@ -3,7 +3,7 @@ donot-transform-stylus
 
 [![Build Status](https://travis-ci.org/donotjs/donot-transform-stylus.svg?branch=master)](https://travis-ci.org/donotjs/donot-transform-stylus)
 
-[Stylus](http://npmjs.org/packages/stylus) rendering engine for [donot](http://github.com/donotjs/donot).
+[Stylus](http://npmjs.org/packages/stylus) compiler for [donot](http://github.com/donotjs/donot).
 
 # Usage
 
