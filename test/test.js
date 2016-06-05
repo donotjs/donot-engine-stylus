@@ -19,15 +19,13 @@ const malformedFile = path.normalize(__dirname + '/data/malformed.styl');
 
 const transform = new StylusTransform();
 
-var destFilename = path.normalize(os.tmpdir() + '/testdonotminify');
-
 describe('stylus', () => {
 
 	var test;
 	var malformed;
 	before(() => {
-		test = fs.readFileSync(testFile, { encoding: 'utf8' });
-		malformed = fs.readFileSync(malformedFile, { encoding: 'utf8' });
+		test = fs.readFileSync(testFile);
+		malformed = fs.readFileSync(malformedFile);
 	});
 
 	describe('compiler', () => {
@@ -49,16 +47,17 @@ describe('stylus', () => {
 		});
 
 		it ('should return error on malformed stylus', () => {
-			return transform.compile(malformedFile, destFilename).should.eventually.be.rejected;
+			return transform.compile(malformedFile, malformed).should.eventually.be.rejected;
 		});
 
 		it ('should return css on valid stylus', () => {
-			return transform.compile(testFile, destFilename).then((result) => {
-				result.data = fs.readFileSync(destFilename, 'utf8');
-				expect(result.data).to.equal('body {\n  width: 100%;\n}\n/*# sourceMappingURL=test/data/test.css.map */');
+			return transform.compile(testFile, test).then((result) => {
+				expect(result.data.toString()).to.equal('body {\n  width: 100%;\n}\n/*# sourceMappingURL=test/data/test.css.map */');
 				expect(result.files).to.be.an.array;
 				expect(result.files[0]).to.be.a('string');
 				expect(result.map).to.be.an.object;
+			}).catch((err) => {
+				console.log(err.stack);
 			}).should.eventually.be.fulfilled;
 		});
 

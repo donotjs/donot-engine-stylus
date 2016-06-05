@@ -23,25 +23,21 @@ class StylusTransform extends Transform {
 		return filename.replace(/(?:\.min)\.css$/, '.styl');
 	}
 
-	compile(srcFilename, destFilename) {
+	compile(filename, data) {
 		return new Promise((resolved, rejected) => {
-			fs.readFile(srcFilename, 'utf8', (err, data) => {
+			var str = data.toString();
+			var style = stylus(str)
+									.set('filename', filename)
+									.set('sourcemap', true)
+									.set('cache', false)
+									.set('compress', /\.min\.css$/i.test(filename));
+			style.render((err, css) => {
 				if (err) return rejected(err);
-				var style = stylus(data)
-				            .set('filename', srcFilename)
-				            .set('sourcemap', true)
-				            .set('cache', false)
-										.set('compress', /\.min\.css$/i.test(destFilename));
-				style.render((err, css) => {
-					if (err) return rejected(err);
-					var files = stylus(data).deps(srcFilename);
-					fs.writeFile(destFilename, css, 'utf8', (err) => {
-						if (err) return rejected(err);
-						resolved({
-							files: [srcFilename].concat(files),
-							map: style.sourcemap
-						});
-					});
+				var files = stylus(str).deps(filename);
+				resolved({
+					data: new Buffer(css),
+					files: [filename].concat(files),
+					map: style.sourcemap
 				});
 			});
 		});
