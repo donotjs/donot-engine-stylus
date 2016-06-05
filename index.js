@@ -31,7 +31,7 @@ class StylusTransform extends Transform {
 				            .set('filename', srcFilename)
 				            .set('sourcemap', true)
 				            .set('cache', false)
-										.set('compress', /\.min\.css$/.i.test(destFilename));
+										.set('compress', /\.min\.css$/i.test(destFilename));
 				style.render((err, css) => {
 					if (err) return rejected(err);
 					var files = stylus(data).deps(srcFilename);
