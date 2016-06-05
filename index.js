@@ -12,7 +12,7 @@ class StylusTransform extends Transform {
 	}
 
 	canTransform(filename) {
-		return /\.css$/i.test(filename);
+		return /(?:\.min)?\.css$/i.test(filename);
 	}
 
 	allowAccess(filename) {
@@ -20,7 +20,7 @@ class StylusTransform extends Transform {
 	}
 
 	map(filename) {
-		return filename.replace(/\.css$/, '.styl');
+		return filename.replace(/(?:\.min)\.css$/, '.styl');
 	}
 
 	compile(srcFilename, destFilename) {
@@ -30,7 +30,8 @@ class StylusTransform extends Transform {
 				var style = stylus(data)
 				            .set('filename', srcFilename)
 				            .set('sourcemap', true)
-				            .set('cache', false);
+				            .set('cache', false)
+										.set('compress', /\.min\.css$/.i.test(destFilename));
 				style.render((err, css) => {
 					if (err) return rejected(err);
 					var files = stylus(data).deps(srcFilename);
