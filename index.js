@@ -20,7 +20,7 @@ class StylusTransform extends Transform {
 	}
 
 	map(filename) {
-		return filename.replace(/(?:\.min)\.css$/, '.styl');
+		return filename.replace(/(?:\.min)?\.css$/, '.styl');
 	}
 
 	compile(filename, data) {
